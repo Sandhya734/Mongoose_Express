@@ -56,11 +56,12 @@ app.get("/chats/:id/edit", async (req,res)=>{
 });
 
 //put Request
-app.put("/chats/:id",(req,res)=>{
-   let {id}=req.params;
-   let {msg: newMsg}=req.body;
-   
-})
+app.put("/chats/:id", async (req,res)=>{
+  let {id}=req.params;
+  let {msg: newMsg}=req.body;
+  let updatedChat =  await Chat.findByIdAndUpdate(id,{msg: newMsg},{runValidators: true, new: true});
+  res.render("/chats");
+});
 
 app.get('/',(req,res)=>{
     res.send("root is working");
