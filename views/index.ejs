@@ -18,7 +18,7 @@
         <p>From:  <i><%=chat.from %></i></p>
         <div class="msg">
              <p>Message:  <%=chat.msg %></p>
-             <form>
+             <form method="get" action="/chats/<%=chat._id%>/edit">
                 <button>Edit</button>
              </form>
         </div>

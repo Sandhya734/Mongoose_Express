@@ -48,6 +48,20 @@ app.post("/chats",(req,res)=>{
   res.redirect("/chats");
 });
 
+//Edit Route
+app.get("/chats/:id/edit", async (req,res)=>{
+  let {id}=req.params;
+  let chat= await Chat.findById(id);
+  res.render("edit.ejs",{chat});
+});
+
+//put Request
+app.put("/chats/:id",(req,res)=>{
+   let {id}=req.params;
+   let {msg: newMsg}=req.body;
+   
+})
+
 app.get('/',(req,res)=>{
     res.send("root is working");
 });
