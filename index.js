@@ -3,11 +3,13 @@ const app=express();
 const mongoose=require('mongoose');
 const path=require("path");
 const Chat=require("./models/chat.js");
+const methodOverride = require('method-override');
 
-app.set("views",path.join(__dirname,"views"));
+app.set("views",path.join(__dirname,"views"));          //views folder add
 app.set("views engine","ejs");
-app.use(express.static(path.join(__dirname,"public")));
-app.use(express.urlencoded({ encoded:true }));
+app.use(express.static(path.join(__dirname,"public")));   //public folder access
+app.use(express.urlencoded({ encoded:true }));      //parse the data from the request
+app.use(methodOverride("_method"));       //method-override
 
 main()
       .then((res)=>{
@@ -60,7 +62,7 @@ app.put("/chats/:id", async (req,res)=>{
   let {id}=req.params;
   let {msg: newMsg}=req.body;
   let updatedChat =  await Chat.findByIdAndUpdate(id,{msg: newMsg},{runValidators: true, new: true});
-  res.render("/chats");
+  res.redirect("/chats");
 });
 
 app.get('/',(req,res)=>{
